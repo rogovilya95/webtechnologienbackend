@@ -6,37 +6,41 @@ import de.htwberlin.webtech.webtech.persistence.UserEntity;
 import java.util.List;
 
 public class Bucket {
-    private long id;
-    private UserEntity user;
-    private List<ProductEntity> products;
+    private Long bucketId;
+    private Long userId;
+    private List<Long> productIds;
 
-    public Bucket(long id, UserEntity user, List<ProductEntity> products) {
-        this.id = id;
-        this.user = user;
-        this.products = products;
+    public Bucket(Long bucketId, Long userId, List<Long> productIds) {
+        this.bucketId = bucketId;
+        this.userId = userId;
+        this.productIds = productIds;
     }
 
-    public long getId() {
-        return id;
+    public Bucket() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+
+    public Long getBucketId() {
+        return bucketId;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public void setBucketId(Long bucketId) {
+        this.bucketId = bucketId;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public List<ProductEntity> getProducts() {
-        return products;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public void setProducts(List<ProductEntity> products) {
-        this.products = products;
+    public List<Long> getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(List<Long> productIds) {
+        this.productIds = productIds;
     }
 }

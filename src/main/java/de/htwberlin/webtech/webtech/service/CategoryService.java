@@ -28,7 +28,7 @@ public class CategoryService {
 
     public Category findById(Long id) {
         var categoryEntity = categoryRepository.findById(id);
-        return categoryEntity.isPresent()? transformEntity(categoryEntity.get()) : null;
+        return categoryEntity.map(this::transformEntity).orElse(null);
     }
 
 
@@ -61,7 +61,7 @@ public class CategoryService {
 
     private Category transformEntity(CategoryEntity categoryEntity) {
         return new Category(
-                categoryEntity.getId(),
+                categoryEntity.getCategoryId(),
                 categoryEntity.getCategoryName()
         );
     }

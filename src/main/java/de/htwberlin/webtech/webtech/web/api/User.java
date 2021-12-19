@@ -4,32 +4,33 @@ import de.htwberlin.webtech.webtech.persistence.BucketEntity;
 import de.htwberlin.webtech.webtech.persistence.RoleEntity;
 
 public class User {
-    public long id;
-    public String login;
-    public String password;
-    public String firstName;
-    public String lastName;
-    public String adresse;
-    public RoleEntity role;
-    public BucketEntity bucket;
+    private long userId;
+    private String login;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String adresse;
+    private String role;
+    private Long bucketId;
+    //public BucketEntity bucket;
 
-    public User(long id, String login, String password, String firstName, String lastName, String adresse, RoleEntity role, BucketEntity bucket) {
-        this.id = id;
+    public User(long userId, String login, String password, String firstName, String lastName, String adresse, String role, Long bucketId) {
+        this.userId = userId;
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.adresse = adresse;
         this.role = role;
-        this.bucket = bucket;
+        this.bucketId = bucketId;
     }
 
-    public long getId() {
-        return id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -72,19 +73,19 @@ public class User {
         this.password = password;
     }
 
-    public RoleEntity getRole() {
+    public String  getRole() {
         return role;
     }
 
-    public void setRole(RoleEntity role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public BucketEntity getBucket() {
-        return bucket;
+    public Long getBucket() {
+        return bucketId;
     }
 
-    public void setBucket(BucketEntity bucket) {
-        this.bucket = bucket;
+    public void setBucket(Long bucketId) {
+        this.bucketId = bucketId;
     }
 }

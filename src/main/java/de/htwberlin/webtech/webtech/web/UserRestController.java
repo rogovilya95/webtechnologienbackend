@@ -33,7 +33,7 @@ public class UserRestController {
     @PostMapping(path = "/api/v1/users")
     public ResponseEntity<Void> createPerson(@RequestBody UserManipulationRequest request) throws URISyntaxException {
         var person = userService.create(request);
-        URI uri = new URI("/api/v1/users/" + person.getId());
+        URI uri = new URI("/api/v1/users/" + person.getUserId());
         return ResponseEntity.created(uri).build();
     }
 

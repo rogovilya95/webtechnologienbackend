@@ -12,11 +12,11 @@ public class UserManipulationRequest {
     public String adresse;
     public String login;
     public String password;
-    public RoleEntity role;
+    public String role;
     public BucketEntity bucket;
 
 
-    public UserManipulationRequest(String firstName, String lastName, String adresse, String login, String password, RoleEntity role, BucketEntity bucket) {
+    public UserManipulationRequest(String firstName, String lastName, String adresse, String login, String password, String role, BucketEntity bucket) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.adresse = adresse;
@@ -24,6 +24,9 @@ public class UserManipulationRequest {
         this.password = password;
         this.role = role;
         this.bucket = bucket;
+    }
+
+    public UserManipulationRequest() {
     }
 
     public String getFirstName() {
@@ -66,11 +69,11 @@ public class UserManipulationRequest {
         this.password = password;
     }
 
-    public RoleEntity getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(RoleEntity role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

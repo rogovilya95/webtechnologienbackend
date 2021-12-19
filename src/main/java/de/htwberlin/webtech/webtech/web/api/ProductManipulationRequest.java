@@ -19,6 +19,9 @@ public class ProductManipulationRequest {
         this.categories = categories;
     }
 
+    public ProductManipulationRequest() {
+    }
+
     public String getProductName() {
         return productName;
     }

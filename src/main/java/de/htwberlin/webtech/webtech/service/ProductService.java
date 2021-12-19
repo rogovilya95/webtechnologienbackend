@@ -1,11 +1,18 @@
 package de.htwberlin.webtech.webtech.service;
 
+import de.htwberlin.webtech.webtech.persistence.BucketEntity;
 import de.htwberlin.webtech.webtech.persistence.ProductEntity;
+import de.htwberlin.webtech.webtech.persistence.UserEntity;
 import de.htwberlin.webtech.webtech.repository.ProductRepository;
+import de.htwberlin.webtech.webtech.web.api.Bucket;
 import de.htwberlin.webtech.webtech.web.api.Products;
 import de.htwberlin.webtech.webtech.web.api.ProductManipulationRequest;
+import de.htwberlin.webtech.webtech.web.api.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,10 +20,33 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final UserService userService;
+    private final BucketService bucketService;
 
-    public ProductService(ProductRepository productRepository) {
+
+    public ProductService(ProductRepository productRepository, UserService userService, BucketService bucketService) {
         this.productRepository = productRepository;
+        this.userService = userService;
+        this.bucketService = bucketService;
     }
+
+
+
+//    public void addToUserBucket(Long productId, Long id) {
+//
+//        if(user == null) {
+//            throw new RuntimeException("User not found" + id);
+//        }
+//        BucketEntity bucket = user.getBucket();
+//        if(bucket==null) {
+//            var newBucket = bucketService.createBucket(, Collections.singletonList(productId));
+//            user.setBucket();
+//            userService.save(bucket);
+//        } else {
+//            bucketService.addProducts(bucket, Collections.singletonList(productId));
+//        }
+//
+//    }
 
     public List<Products> findAll() {
         List<ProductEntity> products = productRepository.findAll();
@@ -28,7 +58,7 @@ public class ProductService {
 
     public Products findById(Long id) {
         var productEntity = productRepository.findById(id);
-        return productEntity.isPresent() ? transformEntity(productEntity.get()) : null;
+        return productEntity.map(this::transformEntity).orElse(null);
     }
 
 
@@ -61,7 +91,7 @@ public class ProductService {
 
     private Products transformEntity(ProductEntity productEntity) {
         return new Products(
-                productEntity.getId(),
+                productEntity.getProductId(),
                 productEntity.getProductName(),
                 productEntity.getProductDescription(),
                 productEntity.getProductPrice(),

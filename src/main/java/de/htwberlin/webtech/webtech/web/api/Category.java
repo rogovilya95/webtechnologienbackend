@@ -1,20 +1,23 @@
 package de.htwberlin.webtech.webtech.web.api;
 
 public class Category {
-    public long id;
+    public long categoryId;
     public String categoryName;
 
-    public Category(long id, String categoryName) {
-        this.id = id;
+    public Category(long categoryId, String categoryName) {
+        this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
 
-    public long getId() {
-        return id;
+    public Category() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {

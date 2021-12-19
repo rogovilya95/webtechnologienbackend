@@ -13,7 +13,7 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     @Column(name = "product_id")
-    private long id;
+    private long productId;
 
     @Column(name = "product_name", nullable = false)
     private String productName;
@@ -24,10 +24,13 @@ public class ProductEntity {
     @Column(name = "product_price", nullable = false)
     private BigDecimal productPrice;
 
+    @ManyToMany(mappedBy = "products")
+    private List<BucketEntity> buckets;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "products_categories",
-    joinColumns = @JoinColumn(name = "product_id"),
-    inverseJoinColumns = @JoinColumn(name = "category_id"))
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<CategoryEntity> categories;
 
 
@@ -39,12 +42,12 @@ public class ProductEntity {
         this.categories = categories;
     }
 
-    protected ProductEntity() {}
+    protected ProductEntity() {
+    }
 
 
-
-    public long getId() {
-        return id;
+    public long getProductId() {
+        return productId;
     }
 
     public String getProductName() {
@@ -77,5 +80,13 @@ public class ProductEntity {
 
     public void setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
+    }
+
+    public List<BucketEntity> getBuckets() {
+        return buckets;
+    }
+
+    public void setBuckets(List<BucketEntity> buckets) {
+        this.buckets = buckets;
     }
 }

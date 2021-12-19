@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository <UserEntity, Long> {
 
 
     List<UserEntity> findAllByFirstName(String firstName);
-    UserEntity findUserEntityByFirstNameIsContaining(String str);
+    //UserEntity findUserEntityByLogin(String login);
 
 
 //    public default UserEntity findUserEntityBy(Long id) {

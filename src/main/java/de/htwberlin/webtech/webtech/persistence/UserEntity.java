@@ -10,12 +10,12 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     @Column(name = "user_id")
-    private long id;
+    private long userId;
 
-    @Column(name = "login", nullable = true) //TO DO
+    @Column(name = "login", nullable = false) //TO DO
     private String login;
 
-    @Column(name = "password", nullable = true)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "first_name", nullable = false)
@@ -31,10 +31,11 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private RoleEntity role;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+   // @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "user")
     private BucketEntity bucket;
 
-    public UserEntity(String login, String password, String firstName, String lastName, String adresse, RoleEntity role, BucketEntity bucket) {
+    public UserEntity(String login, String password, String firstName, String lastName, String adresse, RoleEntity role) {
 
         this.login = login;
         this.password = password;
@@ -42,15 +43,27 @@ public class UserEntity {
         this.lastName = lastName;
         this.adresse = adresse;
         this.role = role;
-        this.bucket = bucket;
     }
+
+//    public UserEntity(String login, String password, String firstName, String lastName, String adresse, RoleEntity role, BucketEntity bucket) {
+//
+//        this.login = login;
+//        this.password = password;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.adresse = adresse;
+//        this.role = role;
+//        this.bucket = bucket;
+//    }
 
     protected UserEntity() {
 
     }
 
-    public long getId() {
-        return id;
+
+
+    public long getUserId() {
+        return userId;
     }
 
     public String getLogin() {
@@ -108,6 +121,8 @@ public class UserEntity {
     public void setBucket(BucketEntity bucket) {
         this.bucket = bucket;
     }
+
+
 
     // protected UserEntity() {};
 

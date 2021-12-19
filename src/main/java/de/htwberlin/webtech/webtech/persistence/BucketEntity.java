@@ -6,7 +6,6 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
-@Data
 @Entity(name = "buckets")
 public class BucketEntity {
     private static final String SEQ_NAME = "bucket_seq";
@@ -14,31 +13,29 @@ public class BucketEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
-    @Column(name = "id")
-    private long id;
+    @Column(name = "bucket_id")
+    private long bucketId;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity user;
 
 
-    @ManyToMany
+    @ManyToMany//(fetch = FetchType.EAGER)
     @JoinTable(name = "buckets_products",
-            joinColumns = @JoinColumn(name = "bucket_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+            joinColumns = @JoinColumn(name = "bucket_id", referencedColumnName = "bucket_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"))
     private List<ProductEntity> products;
 
-
-    public BucketEntity(long id, UserEntity user, List<ProductEntity> products) {
-        this.id = id;
+    public BucketEntity(UserEntity user, List<ProductEntity> productIds) {
         this.user = user;
-        this.products = products;
+        this.products = productIds;
     }
 
-    protected BucketEntity(){}
+    public BucketEntity() {}
 
-    public long getId() {
-        return id;
+    public long getBucketId() {
+        return bucketId;
     }
 
     public UserEntity getUser() {

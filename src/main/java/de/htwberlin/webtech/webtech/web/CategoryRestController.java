@@ -33,7 +33,7 @@ public class CategoryRestController {
     @PostMapping(path = "/api/v1/category")
     public ResponseEntity<Void> createCategory(@RequestBody CategoryManipulationRequest request) throws URISyntaxException {
         var category = categoryService.create(request);
-        URI uri = new URI("/api/v1/category/" + category.getId());
+        URI uri = new URI("/api/v1/category/" + category.getCategoryId());
         return ResponseEntity.created(uri).build();
     }
 

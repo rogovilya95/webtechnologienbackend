@@ -14,7 +14,7 @@ spring:
     show-sql: true # Set true for debugging
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update # (create, create-drop, validate, update)
+      ddl-auto: create # (create, create-drop, validate, update)
 
     open-in-view: false
   sql:

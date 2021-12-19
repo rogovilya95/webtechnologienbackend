@@ -7,26 +7,26 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class Products {
-    public long id;
+    public long productId;
     public String productName;
     public String productDescription;
     public BigDecimal productPrice;
     private List<CategoryEntity> categories;
 
-    public Products(long id, String productName, String productDescription, BigDecimal productPrice, List<CategoryEntity> categories) {
-        this.id = id;
+    public Products(long productId, String productName, String productDescription, BigDecimal productPrice, List<CategoryEntity> categories) {
+        this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.categories = categories;
     }
 
-    public long getId() {
-        return id;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
