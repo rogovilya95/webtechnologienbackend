@@ -17,6 +17,9 @@ public class BucketManipulationRequest {
         this.productIds = productIds;
     }
 
+    public BucketManipulationRequest() {
+    }
+
     public Long getUserId() {
         return userId;
     }
