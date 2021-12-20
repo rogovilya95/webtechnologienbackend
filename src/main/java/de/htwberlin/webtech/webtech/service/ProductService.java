@@ -1,18 +1,12 @@
 package de.htwberlin.webtech.webtech.service;
 
-import de.htwberlin.webtech.webtech.persistence.BucketEntity;
 import de.htwberlin.webtech.webtech.persistence.ProductEntity;
-import de.htwberlin.webtech.webtech.persistence.UserEntity;
+import de.htwberlin.webtech.webtech.repository.CategoryRepository;
 import de.htwberlin.webtech.webtech.repository.ProductRepository;
-import de.htwberlin.webtech.webtech.web.api.Bucket;
 import de.htwberlin.webtech.webtech.web.api.Products;
 import de.htwberlin.webtech.webtech.web.api.ProductManipulationRequest;
-import de.htwberlin.webtech.webtech.web.api.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,33 +14,19 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final UserService userService;
-    private final BucketService bucketService;
+    //private final UserService userService;
+   // private final BucketService bucketService;
+    private final CategoryRepository categoryRepository;
+    //private final CategoryService categoryService;
 
 
-    public ProductService(ProductRepository productRepository, UserService userService, BucketService bucketService) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
-        this.userService = userService;
-        this.bucketService = bucketService;
+        //this.userService = userService;
+        //this.bucketService = bucketService;
+        this.categoryRepository = categoryRepository;
+        //this.categoryService = categoryService;
     }
-
-
-
-//    public void addToUserBucket(Long productId, Long id) {
-//
-//        if(user == null) {
-//            throw new RuntimeException("User not found" + id);
-//        }
-//        BucketEntity bucket = user.getBucket();
-//        if(bucket==null) {
-//            var newBucket = bucketService.createBucket(, Collections.singletonList(productId));
-//            user.setBucket();
-//            userService.save(bucket);
-//        } else {
-//            bucketService.addProducts(bucket, Collections.singletonList(productId));
-//        }
-//
-//    }
 
     public List<Products> findAll() {
         List<ProductEntity> products = productRepository.findAll();
@@ -63,7 +43,8 @@ public class ProductService {
 
 
     public Products create(ProductManipulationRequest request) {
-        var productEntity = new ProductEntity(request.getProductName(), request.getProductDescription(), request.getProductPrice(), request.getCategories());
+        var category = categoryRepository.findById(request.getCategoryId()).orElseThrow();
+        var productEntity = new ProductEntity(request.getProductName(), request.getProductDescription(), request.getProductPrice(), category);
         productRepository.save(productEntity);
         return transformEntity(productEntity);
     }
@@ -95,7 +76,7 @@ public class ProductService {
                 productEntity.getProductName(),
                 productEntity.getProductDescription(),
                 productEntity.getProductPrice(),
-                productEntity.getCategories()
+                productEntity.getCategory().getCategoryId()
         );
     }
 }

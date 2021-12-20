@@ -10,13 +10,13 @@ public class ProductManipulationRequest {
     public String productName;
     public String productDescription;
     public BigDecimal productPrice;
-    private List<CategoryEntity> categories;
+    private Long categoryId;
 
-    public ProductManipulationRequest(String productName, String productDescription, BigDecimal productPrice, List<CategoryEntity> categories) {
+    public ProductManipulationRequest(String productName, String productDescription, BigDecimal productPrice, Long categoryId) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
-        this.categories = categories;
+        this.categoryId = categoryId;
     }
 
     public ProductManipulationRequest() {
@@ -46,11 +46,11 @@ public class ProductManipulationRequest {
         this.productPrice = productPrice;
     }
 
-    public List<CategoryEntity> getCategories() {
-        return categories;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategories(List<CategoryEntity> categories) {
-        this.categories = categories;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

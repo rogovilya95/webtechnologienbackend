@@ -24,31 +24,38 @@ public class ProductEntity {
     @Column(name = "product_price", nullable = false)
     private BigDecimal productPrice;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private List<BucketEntity> buckets;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<CategoryEntity> categories;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    private CategoryEntity category;
 
 
-    public ProductEntity(String productName, String productDescription, BigDecimal productPrice, List<CategoryEntity> categories) {
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "products_categories",
+//            joinColumns = @JoinColumn(name = "product_id"),
+//            inverseJoinColumns = @JoinColumn(name = "category_id"))
+//    private List<CategoryEntity> categories;
+
+
+    //public ProductEntity(String productName, String productDescription, BigDecimal productPrice, List<BucketEntity> buckets, CategoryEntity category) {
+    public ProductEntity(String productName, String productDescription, BigDecimal productPrice, CategoryEntity category) {
 
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
-        this.categories = categories;
+        this.category = category;
     }
 
     protected ProductEntity() {
     }
 
-
     public long getProductId() {
         return productId;
     }
+
 
     public String getProductName() {
         return productName;
@@ -74,19 +81,19 @@ public class ProductEntity {
         this.productPrice = productPrice;
     }
 
-    public List<CategoryEntity> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<CategoryEntity> categories) {
-        this.categories = categories;
-    }
-
     public List<BucketEntity> getBuckets() {
         return buckets;
     }
 
     public void setBuckets(List<BucketEntity> buckets) {
         this.buckets = buckets;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

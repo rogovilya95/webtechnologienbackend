@@ -11,14 +11,17 @@ public class Products {
     public String productName;
     public String productDescription;
     public BigDecimal productPrice;
-    private List<CategoryEntity> categories;
+    private Long categoryId;
 
-    public Products(long productId, String productName, String productDescription, BigDecimal productPrice, List<CategoryEntity> categories) {
+    public Products(long productId, String productName, String productDescription, BigDecimal productPrice, Long categoryId) {
         this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
-        this.categories = categories;
+        this.categoryId = categoryId;
+    }
+
+    public Products() {
     }
 
     public long getProductId() {
@@ -53,11 +56,11 @@ public class Products {
         this.productPrice = productPrice;
     }
 
-    public List<CategoryEntity> getCategories() {
-        return categories;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategories(List<CategoryEntity> categories) {
-        this.categories = categories;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

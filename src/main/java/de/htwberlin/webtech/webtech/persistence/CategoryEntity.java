@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "categories")
 public class CategoryEntity {
@@ -19,10 +20,14 @@ public class CategoryEntity {
     @Column(name = "category_name", nullable = false)
     private String categoryName;
 
+    @OneToOne(mappedBy = "category", fetch = FetchType.EAGER)
+    private ProductEntity product;
+
+//    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+//    private List<ProductEntity> products;
 
     public CategoryEntity(String categoryName) {
         this.categoryName = categoryName;
-
     }
 
     protected CategoryEntity() {}
@@ -38,4 +43,13 @@ public class CategoryEntity {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
 }
+

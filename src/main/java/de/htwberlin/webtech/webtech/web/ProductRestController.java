@@ -33,7 +33,7 @@ public class ProductRestController {
     @PostMapping(path = "/api/v1/products")
     public ResponseEntity<Void> createProduct(@RequestBody ProductManipulationRequest request) throws URISyntaxException {
         var product = productService.create(request);
-        URI uri = new URI("/api/v1/product/" + product.getProductId());
+        URI uri = new URI("/api/v1/products/" + product.getProductId());
         return ResponseEntity.created(uri).build();
     }
 
